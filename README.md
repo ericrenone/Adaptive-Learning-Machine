@@ -140,6 +140,16 @@ Allowing intuitive inspection of learning dynamics.
 
 ## Conclusion
 
-The simulation demonstrates that adaptive gain learning preserves convergence speed while significantly reducing stochastic variance, producing smooth, repeatable, and noise-robust trajectories.
+This project demonstrates that a deterministic, fixed-point adaptive learning system can track a target mean under noisy inputs while simultaneously monitoring real-time certainty using Fisher information.
+
+Key takeaways:
+
+Deterministic belief updates: The lambda-calculus-based update rule reliably converges to the true mean.
+
+Certainty tracking: Fisher information grows with each observation, showing how confident the system becomes over time.
+
+Hardware-friendly design: Fixed-point arithmetic and incremental updates make it suitable for low-latency, neuromorphic, or FPGA implementations.
+
+Visualization of learning dynamics: The system’s trajectories show both adaptive belief and certainty evolution, linking theory to observable behavior.
 
 
