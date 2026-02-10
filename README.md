@@ -11,8 +11,8 @@ The **DPFAE** is an adaptive learning system designed for **edge intelligence** 
 - **Dual-Path Update Law** – Separates slow stabilizing drift from fast, variance-reactive gain updates.
 - **Hardware-Native Efficiency** – Implemented in Q-format integer arithmetic, reducing power consumption by 10–30× compared to floating-point systems.
 - **Provable Variance Suppression** – Reduces steady-state variance (RMSE) by ~2.3× relative to constant-gain methods.
-- **Geometric Optimality** – Approximates Riemannian Natural Gradient flow, ensuring coordinate invariance under smooth reparameterization.
-- **Stability-Inspired Design** – Adaptive gain and unit-norm projection provide smooth, bounded updates without overfitting.
+- **Geometric Optimality** – Approximates Riemannian natural gradient flow, ensuring coordinate invariance under smooth reparameterization.
+- **Stability-Inspired Design** – Adaptive gain and **unit-norm quaternion projection** provide smooth, bounded updates without overfitting.
 
 ---
 
@@ -27,9 +27,9 @@ DPFAE is grounded in three pillars of mathematical inspiration:
    Following Sims (2003), DPFAE optimizes a policy balancing utility against information-processing costs. The **Gain Adaptation Path** dynamically regulates sensitivity, analogous to the optimal Boltzmann distribution in RI models.
 
 3. **Stability-Inspired Design (Harmonic Analogy)**  
-   While not directly implementing harmonic analysis or multi-scale PDEs, these concepts inform DPFAE’s design for stable updates:  
-   - **Directional Stability** – Unit-norm projections keep updates on the unit manifold, avoiding collapse along particular directions.  
-   - **Smoothness** – Adaptive gain acts as a low-pass filter, damping stochastic fluctuations.  
+   While not implementing harmonic PDEs or multi-scale induction, these concepts inform DPFAE’s design for **stable updates**:
+   - **Directional Stability** – The state is represented as a **unit quaternion (4D vector)**, ensuring updates remain on the unit manifold and preventing collapse along particular directions.
+   - **Smoothness** – Adaptive gain acts as a low-pass filter, damping stochastic fluctuations.
 
 > ⚠️ Note: These concepts are **design inspirations**, not literal PDE or multi-scale computations.
 
@@ -63,22 +63,23 @@ By decoupling the paths, the system achieves **fast error correction** without a
 
 ### 🧠 Why Dual-Path Works
 
-- **Separation of Concerns**: Reactive path handles immediate corrections; adaptive path controls sensitivity to noise.
-- **Variance Suppression**: Adaptive gain reduces oscillations and maintains bounded updates.
-- **Provable Stability**: Minimum gain floors and decay parameters prevent divergence.
-- **General Applicability**: Can be applied to any online learning scenario, from simple stochastic estimation to complex neural network training.
+- **Separation of Concerns** – Reactive path handles immediate corrections; adaptive path controls sensitivity to noise.
+- **Variance Suppression** – Adaptive gain reduces oscillations and maintains bounded updates.
+- **Provable Stability** – Minimum gain floors and decay parameters prevent divergence.
+- **Quaternion Representation** – Unit-norm 4D states provide geometric consistency for stable updates.
+- **General Applicability** – Can be applied to any online learning scenario, from stochastic estimation to neural network training.
 
 ---
 
 ## 📊 Comparative Analysis
 
-| Criterion | SGD | Adam | SNN | JEPA | DPFAE |
-|-----------|-----|------|-----|------|-------|
-| Convergence | Linear/Sublinear | Sublinear | Noisy | Task-dependent | Geometric (Linear) |
-| Stability | Poor | Moderate | Low | Empirical | Strong (Bounded) |
-| Hardware | FP32/FP16 | FP32 | Specialized | FP16+ | Integer Fixed-Point |
-| Geometry | Euclidean | Heuristic | None | Implicit | Riemannian (Approx) |
-| Complexity | O(n) | O(n) | O(n) | O(n) | O(n) |
+| Criterion      | SGD           | Adam      | SNN        | JEPA           | DPFAE                 |
+|---------------|---------------|-----------|------------|----------------|---------------------|
+| Convergence    | Linear/Sublinear | Sublinear | Noisy      | Task-dependent  | Geometric (Linear)   |
+| Stability      | Poor          | Moderate  | Low        | Empirical       | Strong (Bounded)     |
+| Hardware       | FP32/FP16     | FP32      | Specialized| FP16+           | Integer Fixed-Point  |
+| Geometry       | Euclidean     | Heuristic | None       | Implicit        | Riemannian (Approx)  |
+| Complexity     | O(n)          | O(n)      | O(n)       | O(n)            | O(n)                 |
 
 ---
 
@@ -105,14 +106,16 @@ By decoupling the paths, the system achieves **fast error correction** without a
 - **Integer-Only Computation** – Deterministic, hardware-friendly, low-power.  
 - **Variance Suppression** – Adaptive gain reduces RMSE by ~2.3× versus constant-gain methods.  
 - **Geometry-Aware Optimization** – Riemannian natural gradient ensures coordinate-invariant updates.  
-- **Stability-Inspired Design** – Smooth, bounded updates without PDEs or multi-scale computations.  
-- **Hardware-Ready** – Compatible with FPGA, ASIC, and neuromorphic designs.  
+- **Stability-Inspired Design** – Smooth, bounded updates via **unit quaternion projections**.  
+- **Hardware-Ready** – Fully compatible with FPGA, ASIC, and neuromorphic designs.  
 - **Provable Guarantees** – Boundedness, monotonic descent, and predictable variance reduction.  
 - **Linear Complexity** – Fully element-wise updates; no matrix inversion needed.
 
+> Provably stable, variance-controlled, and hardware-efficient **online learning primitive**.
+
 ---
 
-# Provably stable, variance-controlled, and hardware-efficient **online learning primitive**.
+## 🔗 References
 
-
-
+1. Sims, C. A. (2003). *Implications of rational inattention*. Journal of Monetary Economics.  
+2. Čencov, N. N. (1982). *Statistical Decision Rules and Optimal Inference*.  
