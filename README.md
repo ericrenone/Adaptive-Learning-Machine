@@ -72,7 +72,7 @@ The architecture separates **fast, reactive updates** from **slow, adaptive gain
 |----------------|------------|------------|------------|----------------------|
 | Convergence    | Linear/Sublinear | Sublinear | Task-dependent | Geometric (Ergodic) |
 | Stability      | Poor       | Moderate   | Empirical  | Strong (Bounded)     |
-| Hardware       | FP32/FP16  | FP32       | FP16+      | Integer Fixed-Point  |
+| Hardware       | FP32/FP16  | FP32       | FP16+      | Q16.16 Fixed-Point  |
 | Geometry       | Euclidean  | Heuristic  | Implicit   | Riemannian (Approx)  |
 | Complexity     | O(n)       | O(n)       | O(n)       | O(n)                 |
 
