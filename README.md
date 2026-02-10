@@ -41,6 +41,14 @@ The **Dual-Path Architecture** separates **fast, reactive updates** from **slow,
 - **Reactive Path (Fast Updates)**
 - **Adaptive Path (Gain-Controlled)**
 
+Reactive Path (Fast Updates):
+θ_{t+1}^{(1)} = θ_t^{(1)} - η · grad_t
+
+Adaptive Path (Gain-Controlled):
+θ_{t+1}^{(2)} = θ_t^{(2)} - η · α_t · grad_t
+α_{t+1} = max(α_min, γ · α_t + f(|grad_t|))
+
+
 ---
 
 ## 📊 Comparative Analysis (SOTA 2026)
